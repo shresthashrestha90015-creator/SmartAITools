@@ -1,0 +1,11 @@
+{
+  "id": "/",
+  "name": "SmartAITools",
+  "short_name": "SmartAITools",
+  "description": "All-in-One AI Tools for Writing, Images, Videos, Voice and Productivity.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#070817"
+}
