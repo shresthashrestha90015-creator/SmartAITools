@@ -3,65 +3,233 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SmartAITools - Global AI Tools</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SmartAITools | 50 AI Tools</title>
+<meta name="description" content="Discover 50 useful AI tools for writing, images, video, voice and productivity.">
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#0b1020;color:white;font-family:Arial,sans-serif}
-header{padding:22px;background:#151e35;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:25px;font-weight:bold;color:#43e5cf}
-select,input,button{padding:12px;border-radius:9px;border:0}
-.hero{text-align:center;padding:65px 20px}
-h1{font-size:42px}
-.hero p{color:#bbc6dd}
-.search{max-width:550px;margin:25px auto;display:flex;gap:8px}
-.search input{flex:1;min-width:0}
-button{background:#7164ed;color:white;font-weight:bold;cursor:pointer}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;padding:25px}
-.card{background:#172440;padding:25px;border-radius:15px;border:1px solid #34415f}
-.card h2{color:#43e5cf}
-.card p{color:#c4cce0}
-footer{text-align:center;padding:30px;color:#bbc6dd}
+:root{--blue:#38bdf8;--purple:#a78bfa;--gold:#facc15}
+body{
+ margin:0;color:#f8fafc;font-family:Arial,sans-serif;
+ background:radial-gradient(ellipse at top,#251052 0%,#090d1c 48%,#03050c 100%);
+ min-height:100vh;overflow-x:hidden
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;
+ background:linear-gradient(115deg,transparent 35%,#38bdf810 50%,transparent 65%);
+ background-size:200% 200%;animation:shine 9s linear infinite
+}
+@keyframes shine{0%{background-position:200% 0}100%{background-position:-200% 0}}
+header{
+ text-align:center;padding:48px 15px 35px;
+ background:linear-gradient(135deg,#080c1c,#211044,#071c37);
+ border-bottom:1px solid #a78bfa55;position:relative
+}
+h1{
+ font-size:clamp(32px,7vw,55px);margin:0;
+ background:linear-gradient(90deg,#facc15,#fff,#38bdf8,#c084fc);
+ background-clip:text;-webkit-background-clip:text;color:transparent;
+ animation:glow 3s ease-in-out infinite alternate
+}
+@keyframes glow{from{filter:drop-shadow(0 0 4px #38bdf8)}to{filter:drop-shadow(0 0 17px #c084fc)}}
+header p{color:#cbd5e1;font-size:16px}
+.gold{color:var(--gold)}
+button,input{font:inherit}
+#lang{
+ background:linear-gradient(90deg,#eab308,#facc15);
+ color:#111827;border:0;border-radius:30px;
+ padding:12px 22px;font-weight:bold;cursor:pointer
+}
+main{max-width:1200px;margin:auto;padding:24px 15px}
+.stats{
+ text-align:center;color:#facc15;font-size:18px;
+ padding:12px;border:1px solid #facc1544;
+ border-radius:14px;background:#facc150b;margin-bottom:20px
+}
+.searchbox{position:relative;margin-bottom:18px}
+#search{
+ width:100%;padding:17px 18px;border-radius:14px;
+ background:#111a30;border:1px solid #38bdf877;
+ color:white;font-size:16px;outline:none
+}
+#search:focus{box-shadow:0 0 18px #38bdf855}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 24px}
+.filters button{
+ background:#111a30;color:#dbeafe;
+ border:1px solid #7657a9;padding:10px 14px;border-radius:30px;
+ cursor:pointer;transition:.25s
+}
+.filters button:hover,.filters button.active{
+ background:linear-gradient(90deg,#43308e,#075985);
+ color:white;border-color:#38bdf8;box-shadow:0 0 13px #38bdf866
+}
+#tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:17px}
+.tool{
+ background:linear-gradient(145deg,#172039,#0a1020);
+ border:1px solid #6753a5;border-radius:17px;
+ padding:19px;position:relative;overflow:hidden;
+ transition:transform .3s,border-color .3s,box-shadow .3s;
+ animation:appear .5s ease both
+}
+@keyframes appear{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.tool:before{
+ content:"";position:absolute;top:0;left:-100%;width:60%;height:2px;
+ background:linear-gradient(90deg,transparent,#38bdf8,#facc15,transparent);
+ animation:cardshine 4s linear infinite
+}
+@keyframes cardshine{to{left:150%}}
+.tool:hover{
+ transform:translateY(-7px) scale(1.02);
+ border-color:#facc15;box-shadow:0 10px 30px #38bdf833,0 0 15px #a78bfa33
+}
+.tool h3{font-size:19px;margin:0 0 10px;color:#fff}
+.tool p{font-size:14px;line-height:1.5;color:#b9c4d8;min-height:40px}
+.category{font-size:12px;color:#facc15;letter-spacing:1px}
+.tool a{
+ display:inline-block;margin-top:8px;
+ background:linear-gradient(100deg,#2563eb,#7c3aed,#ca8a04);
+ color:white;text-decoration:none;padding:10px 15px;
+ border-radius:9px;font-size:14px;font-weight:bold;
+ transition:.2s
+}
+.tool a:hover{filter:brightness(1.3);box-shadow:0 0 15px #a78bfa}
+#count{text-align:center;color:#c4b5fd;margin:15px 0}
+footer{text-align:center;padding:30px 12px;color:#9ca3af;border-top:1px solid #ffffff18;margin-top:35px}
+@media(max-width:500px){
+ header{padding-top:35px}
+ #tools{grid-template-columns:1fr 1fr;gap:10px}
+ .tool{padding:13px}
+ .tool h3{font-size:16px}
+ .tool p{font-size:12px}
+ .tool a{font-size:12px;padding:9px}
+}
+@media(max-width:340px){#tools{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header>
-<div class="logo">SmartAITools 🌍</div>
-<select id="language" onchange="changeLanguage()">
-<option value="en">English</option>
-<option value="hi">हिंदी</option>
-</select>
+<h1>✦ SmartAITools ✦</h1>
+<p id="tagline">Explore 50 Powerful AI Tools in One Place</p>
+<p class="gold" id="subline">AI • Creativity • Technology • Future</p>
+<button id="lang" onclick="toggleLang()">हिंदी में देखें</button>
 </header>
-<section class="hero">
-<h1 id="heading">Discover the Best AI Tools</h1>
-<p id="subtitle">Explore AI tools for your everyday work.</p>
-<div class="search">
-<input id="search" placeholder="Search AI tools...">
-<button onclick="filterTools()">Search</button>
+<main>
+<div class="stats" id="stats">✨ 50 AI TOOLS AVAILABLE ✨</div>
+<div class="searchbox">
+<input id="search" type="search" placeholder="🔍 Search your AI tool..." oninput="render()">
 </div>
-</section>
-<section class="grid" id="tools">
-<div class="card"><h2>✍️ AI Writing</h2><p>Writing, research and content tools.</p></div>
-<div class="card"><h2>🎨 AI Images</h2><p>Create amazing AI images and logos.</p></div>
-<div class="card"><h2>🎬 AI Video</h2><p>Discover AI video creation tools.</p></div>
-<div class="card"><h2>🎙️ AI Voice</h2><p>Voice generation and audio tools.</p></div>
-<div class="card"><h2>🌐 AI Websites</h2><p>Build websites with AI.</p></div>
-<div class="card"><h2>⚡ AI Productivity</h2><p>Make everyday work faster.</p></div>
-</section>
-<footer>© 2026 SmartAITools | Global AI Discovery</footer>
+<div class="filters" id="filters"></div>
+<div id="count"></div>
+<div id="tools"></div>
+</main>
+<footer>
+<p>✦ SmartAITools ✦</p>
+<p id="foot">An independent directory of AI tools. External websites have their own terms and pricing.</p>
+</footer>
 <script>
-function changeLanguage(){
-let hi=document.getElementById('language').value==='hi';
-document.getElementById('heading').innerText=hi?'बेहतरीन AI टूल्स खोजें':'Discover the Best AI Tools';
-document.getElementById('subtitle').innerText=hi?'अपने रोज़मर्रा के काम के लिए AI टूल्स खोजें':'Explore AI tools for your everyday work.';
+const data=[
+["ChatGPT","Writing","https://chatgpt.com/","AI assistant","AI सहायक"],
+["Claude","Writing","https://claude.ai/","AI writing assistant","AI लेखन सहायक"],
+["Google Gemini","Writing","https://gemini.google.com/","Google AI assistant","गूगल AI सहायक"],
+["Microsoft Copilot","Writing","https://copilot.microsoft.com/","AI assistant","AI सहायक"],
+["Perplexity","Writing","https://www.perplexity.ai/","AI search assistant","AI खोज सहायक"],
+["Jasper","Writing","https://www.jasper.ai/","AI content writing","AI से लेखन"],
+["Grammarly","Writing","https://www.grammarly.com/","Writing and grammar","लेखन और व्याकरण"],
+["QuillBot","Writing","https://quillbot.com/","Paraphrasing assistant","लिखावट सुधारने का टूल"],
+["DeepL Write","Writing","https://www.deepl.com/write","Writing improvement","लेखन सुधार"],
+["Writesonic","Writing","https://writesonic.com/","AI content creation","AI से सामग्री बनाना"],
+["Adobe Firefly","Images","https://firefly.adobe.com/","AI image creation","AI से तस्वीर बनाना"],
+["Canva AI","Images","https://www.canva.com/","Design and AI images","डिजाइन और तस्वीरें"],
+["Midjourney","Images","https://www.midjourney.com/","AI image generator","AI तस्वीर निर्माता"],
+["Leonardo AI","Images","https://leonardo.ai/","AI image creation","AI तस्वीरें बनाना"],
+["Ideogram","Images","https://ideogram.ai/","AI image generator","AI तस्वीर निर्माता"],
+["Recraft","Images","https://www.recraft.ai/","AI design tool","AI डिजाइन टूल"],
+["Playground","Images","https://playground.com/","AI image creation","AI तस्वीर बनाना"],
+["Remove.bg","Images","https://www.remove.bg/","Remove image backgrounds","तस्वीर का बैकग्राउंड हटाएँ"],
+["Clipdrop","Images","https://clipdrop.co/","AI image editing","AI तस्वीर एडिटिंग"],
+["PhotoRoom","Images","https://www.photoroom.com/","Photo editing","फोटो एडिटिंग"],
+["Runway","Video","https://runwayml.com/","AI video creation","AI वीडियो बनाना"],
+["Pika","Video","https://pika.art/","AI video generator","AI वीडियो निर्माता"],
+["Luma Dream Machine","Video","https://lumalabs.ai/dream-machine","AI video creation","AI वीडियो बनाना"],
+["Kling AI","Video","https://klingai.com/","AI video generator","AI वीडियो निर्माता"],
+["Synthesia","Video","https://www.synthesia.io/","AI avatar videos","AI अवतार वीडियो"],
+["HeyGen","Video","https://www.heygen.com/","AI avatar videos","AI अवतार वीडियो"],
+["InVideo AI","Video","https://invideo.io/","AI video maker","AI वीडियो मेकर"],
+["VEED","Video","https://www.veed.io/","Online video editor","ऑनलाइन वीडियो एडिटर"],
+["Descript","Video","https://www.descript.com/","Audio and video editing","ऑडियो और वीडियो एडिटिंग"],
+["CapCut","Video","https://www.capcut.com/","Video editing","वीडियो एडिटिंग"],
+["ElevenLabs","Voice","https://elevenlabs.io/","AI voice generation","AI आवाज बनाना"],
+["Murf AI","Voice","https://murf.ai/","AI voiceovers","AI वॉइसओवर"],
+["PlayHT","Voice","https://play.ht/","AI text to speech","टेक्स्ट से आवाज"],
+["Speechify","Voice","https://speechify.com/","Text to speech","लिखे हुए शब्द सुनना"],
+["Suno","Voice","https://suno.com/","AI music creation","AI संगीत बनाना"],
+["Udio","Voice","https://www.udio.com/","AI music creation","AI संगीत बनाना"],
+["Adobe Podcast","Voice","https://podcast.adobe.com/","Audio enhancement","ऑडियो सुधार"],
+["Krisp","Voice","https://krisp.ai/","Noise cancellation","आवाज का शोर हटाना"],
+["Otter AI","Voice","https://otter.ai/","Meeting transcription","बातचीत लिखना"],
+["Cleanvoice","Voice","https://cleanvoice.ai/","Audio cleanup","ऑडियो साफ करना"],
+["Notion AI","Productivity","https://www.notion.so/product/ai","AI workspace","AI काम का प्लेटफॉर्म"],
+["Gamma","Productivity","https://gamma.app/","AI presentations","AI प्रेजेंटेशन"],
+["Zapier","Productivity","https://zapier.com/","Workflow automation","काम ऑटोमेट करना"],
+["Make","Productivity","https://www.make.com/","Workflow automation","काम ऑटोमेट करना"],
+["n8n","Productivity","https://n8n.io/","Automation platform","ऑटोमेशन प्लेटफॉर्म"],
+["Cursor","Productivity","https://cursor.com/","AI coding editor","AI कोडिंग एडिटर"],
+["Replit","Productivity","https://replit.com/","Online coding platform","ऑनलाइन कोडिंग"],
+["Lovable","Productivity","https://lovable.dev/","Build apps with AI","AI से ऐप बनाना"],
+["ClickUp AI","Productivity","https://clickup.com/ai","AI productivity","AI से काम व्यवस्थित करना"],
+["NotebookLM","Productivity","https://notebooklm.google.com/","AI research assistant","AI रिसर्च सहायक"]
+];
+const cats=["All","Writing","Images","Video","Voice","Productivity"];
+const hindiNames={
+All:"सभी टूल",Writing:"लेखन",Images:"तस्वीरें",
+Video:"वीडियो",Voice:"आवाज़ और संगीत",Productivity:"काम और उत्पादकता"
+};
+let hindi=false,selected="All";
+function toggleLang(){
+ hindi=!hindi;
+ document.getElementById("lang").textContent=hindi?"View in English":"हिंदी में देखें";
+ document.getElementById("tagline").textContent=hindi?"एक ही जगह 50 शानदार AI टूल खोजें":"Explore 50 Powerful AI Tools in One Place";
+ document.getElementById("subline").textContent=hindi?"AI • रचनात्मकता • तकनीक • भविष्य":"AI • Creativity • Technology • Future";
+ document.getElementById("stats").textContent=hindi?"✨ 50 AI टूल उपलब्ध हैं ✨":"✨ 50 AI TOOLS AVAILABLE ✨";
+ document.getElementById("search").placeholder=hindi?"🔍 अपना AI टूल खोजें...":"🔍 Search your AI tool...";
+ document.getElementById("foot").textContent=hindi?"यह AI टूल की स्वतंत्र सूची है। हर वेबसाइट की अपनी शर्तें और कीमतें हैं।":"An independent directory of AI tools. External websites have their own terms and pricing.";
+ render();
 }
-function filterTools(){
-let q=document.getElementById('search').value.toLowerCase();
-document.querySelectorAll('.card').forEach(c=>{
-c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none';
-});
+function render(){
+ const filters=document.getElementById("filters");
+ filters.innerHTML="";
+ cats.forEach(c=>{
+  const b=document.createElement("button");
+  b.textContent=hindi?hindiNames[c]:c;
+  b.className=selected===c?"active":"";
+  b.onclick=()=>{selected=c;render()};
+  filters.appendChild(b);
+ });
+ const q=document.getElementById("search").value.toLowerCase().trim();
+ const list=data.filter(t=>(selected==="All"||t[1]===selected)&&t.join(" ").toLowerCase().includes(q));
+ const area=document.getElementById("tools");
+ area.innerHTML="";
+ list.forEach((t,i)=>{
+  const card=document.createElement("article");
+  card.className="tool";
+  const h=document.createElement("h3");
+  h.textContent="✦ "+t[0];
+  const cat=document.createElement("div");
+  cat.className="category";
+  cat.textContent=hindi?hindiNames[t[1]]:t[1];
+  const p=document.createElement("p");
+  p.textContent=hindi?t[4]:t[3];
+  const a=document.createElement("a");
+  a.href=t[2];a.target="_blank";a.rel="noopener noreferrer";
+  a.textContent=hindi?"वेबसाइट खोलें ↗":"Visit Website ↗";
+  card.append(h,cat,p,a);
+  area.appendChild(card);
+ });
+ document.getElementById("count").textContent=
+  (hindi?"दिखाए जा रहे टूल: ":"Showing tools: ")+list.length+" / 50";
+ if(!list.length)area.textContent=hindi?"कोई टूल नहीं मिला।":"No tools found.";
 }
+render();
 </script>
 </body>
 </html>
-
