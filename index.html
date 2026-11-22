@@ -1,10 +1,431 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070817">
+<title>SmartAITools | NEBULA X</title>
+<style>
+:root{
+  --bg:#070817;
+  --panel:rgba(18,22,48,.76);
+  --text:#f7f7ff;
+  --muted:#a7afd0;
+  --cyan:#00eaff;
+  --purple:#a855f7;
+  --pink:#ff4fd8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+#stars{
+  position:fixed;inset:0;width:100%;height:100%;
+  z-index:-3;pointer-events:none;
+}
+.aurora{
+  position:fixed;inset:-30%;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 20% 20%,rgba(93,45,180,.24),transparent 38%),
+    radial-gradient(ellipse at 80% 40%,rgba(0,190,255,.16),transparent 38%),
+    radial-gradient(ellipse at 50% 90%,rgba(255,40,180,.12),transparent 40%);
+  animation:aurora 14s ease-in-out infinite alternate;
+}
+@keyframes aurora{
+  from{transform:rotate(-8deg) scale(1)}
+  to{transform:rotate(8deg) scale(1.18)}
+}
+header{
+  position:sticky;top:0;z-index:20;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:15px 5%;
+  background:rgba(7,8,23,.82);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(0,234,255,.2);
+}
+.logo{
+  font-size:21px;font-weight:900;letter-spacing:1px;
+  background:linear-gradient(90deg,#00eaff,#c084fc,#ff4fd8);
+  -webkit-background-clip:text;color:transparent;
+  animation:glow 3s infinite alternate;
+}
+@keyframes glow{
+  from{filter:drop-shadow(0 0 2px #00eaff)}
+  to{filter:drop-shadow(0 0 12px #c084fc)}
+}
+nav{display:flex;gap:18px;align-items:center}
+nav a{color:#dce4ff;text-decoration:none;font-size:13px}
+nav a:hover{color:var(--cyan)}
+.lang{
+  border:1px solid var(--cyan);background:transparent;color:white;
+  padding:9px 13px;border-radius:22px;cursor:pointer;
+}
+.hero{
+  min-height:570px;padding:55px 20px 35px;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;position:relative;
+}
+.planet-wrap{
+  width:190px;height:190px;position:relative;margin:5px auto 28px;
+  display:grid;place-items:center;
+}
+.planet{
+  width:125px;height:125px;border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 25%,#c9faff 0%,#34b7ff 13%,#3150bd 40%,#160d4a 75%,#050719 100%);
+  box-shadow:inset -20px -15px 35px #020314,
+    0 0 35px #168cff,0 0 80px rgba(168,85,247,.6);
+  animation:planet 12s linear infinite;
+}
+@keyframes planet{to{transform:rotate(360deg)}}
+.orbit{
+  position:absolute;width:190px;height:72px;
+  border:2px solid rgba(0,234,255,.8);border-radius:50%;
+  transform:rotate(-25deg);
+  box-shadow:0 0 16px #00eaff;
+  animation:orbit 8s linear infinite;
+}
+.orbit.two{
+  width:210px;height:90px;border-color:rgba(255,79,216,.65);
+  transform:rotate(48deg);animation-direction:reverse;
+}
+@keyframes orbit{to{transform:rotate(335deg)}}
+.hero h1{
+  font-size:clamp(34px,7vw,66px);font-weight:1000;
+  line-height:1.12;letter-spacing:-1px;
+  background:linear-gradient(90deg,#00eaff,#fff,#c084fc,#ff4fd8);
+  background-size:250% auto;
+  -webkit-background-clip:text;color:transparent;
+  animation:shine 5s linear infinite;
+}
+@keyframes shine{to{background-position:250% center}}
+.hero p{
+  max-width:650px;color:var(--muted);font-size:16px;
+  line-height:1.7;margin:18px auto 25px;
+}
+.search-box{
+  width:min(600px,94%);display:flex;align-items:center;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(0,234,255,.55);
+  border-radius:50px;padding:6px 8px 6px 18px;
+  box-shadow:0 0 25px rgba(0,234,255,.12);
+}
+.search-box input{
+  flex:1;min-width:0;background:transparent;border:0;outline:0;
+  color:white;font-size:15px;padding:12px 4px;
+}
+.search-box input::placeholder{color:#9ca8c8}
+.search-box button{
+  border:0;border-radius:30px;padding:12px 20px;
+  background:linear-gradient(90deg,#00bde8,#8855f7);
+  color:white;font-weight:bold;cursor:pointer;
+}
+.stats{
+  display:flex;justify-content:center;gap:35px;flex-wrap:wrap;
+  margin-top:32px;color:#bfc9eb;font-size:13px;
+}
+.stats strong{color:#00eaff;font-size:20px;display:block;margin-bottom:5px}
+section{padding:35px 5% 50px;scroll-margin-top:75px}
+.section-title{
+  text-align:center;font-size:clamp(24px,4vw,36px);
+  margin-bottom:10px;
+  background:linear-gradient(90deg,#00eaff,#fff,#ff4fd8);
+  -webkit-background-clip:text;color:transparent;
+  animation:titlePulse 3s ease-in-out infinite alternate;
+}
+@keyframes titlePulse{to{filter:drop-shadow(0 0 12px #8b5cf6)}}
+.section-sub{text-align:center;color:var(--muted);margin-bottom:28px;font-size:14px}
+.category-nav{
+  display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
+  margin:0 auto 28px;
+}
+.category-nav button{
+  background:rgba(255,255,255,.06);color:#dce4ff;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:30px;padding:10px 16px;cursor:pointer;
+  transition:.25s;
+}
+.category-nav button:hover,.category-nav button.active{
+  background:linear-gradient(90deg,#087fae,#7738c9);
+  border-color:#00eaff;box-shadow:0 0 16px rgba(0,234,255,.25);
+}
+.tools-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:17px;max-width:1250px;margin:auto;
+}
+.tool-card{
+  position:relative;overflow:hidden;
+  min-height:160px;padding:20px;
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(25,32,68,.88),rgba(12,14,35,.92));
+  border:1px solid rgba(139,120,255,.24);
+  text-decoration:none;color:white;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+  animation:cardIn .65s both;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(20px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.tool-card:before{
+  content:"";position:absolute;inset:-2px;
+  background:linear-gradient(120deg,transparent,#00eaff55,transparent,#ff4fd855);
+  transform:translateX(-110%);transition:transform .7s;
+  pointer-events:none;
+}
+.tool-card:hover:before{transform:translateX(110%)}
+.tool-card:hover{
+  transform:translateY(-8px) rotateX(3deg);
+  border-color:#00eaff;
+  box-shadow:0 12px 35px rgba(0,234,255,.15),0 0 18px rgba(168,85,247,.18);
+}
+.tool-icon{font-size:32px;margin-bottom:13px;display:block}
+.tool-card h3{font-size:17px;margin-bottom:8px}
+.tool-card p{font-size:12px;color:#aeb9d9;line-height:1.5}
+.tool-card .open{
+  display:inline-block;margin-top:14px;font-size:11px;
+  color:#00eaff;font-weight:bold;letter-spacing:1px;
+}
+.no-results{display:none;text-align:center;color:#aeb9d9;padding:35px}
+.about{
+  max-width:850px;margin:15px auto 0;text-align:center;
+  background:rgba(20,25,55,.65);border:1px solid #353b70;
+  border-radius:22px;padding:28px;line-height:1.8;color:#b9c4e5;
+}
+footer{
+  text-align:center;padding:30px 15px;
+  border-top:1px solid rgba(0,234,255,.2);
+  color:#9ba6c8;font-size:13px;line-height:1.8;
+}
+footer strong{color:#00eaff}
+@media(max-width:650px){
+  header{padding:13px 4%}
+  nav{gap:9px}
+  nav a{font-size:11px}
+  .logo{font-size:17px}
+  .hero{min-height:530px;padding-top:40px}
+  .planet-wrap{transform:scale(.85);margin-bottom:10px}
+  section{padding-left:4%;padding-right:4%}
+  .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  .tool-card{padding:14px;min-height:155px}
+  .tool-icon{font-size:27px}
+  .tool-card h3{font-size:14px}
+  .tool-card p{font-size:11px}
+  .stats{gap:20px}
+}
+@media(max-width:370px){
+  .tools-grid{grid-template-columns:1fr}
+  nav a{display:none}
+}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="aurora"></div>
+
+<header>
+  <div class="logo">✦ SMART AI TOOLS</div>
+  <nav>
+    <a href="#home" data-en="Home" data-hi="होम">Home</a>
+    <a href="#tools" data-en="AI Tools" data-hi="एआई टूल्स">AI Tools</a>
+    <a href="#about" data-en="About" data-hi="जानकारी">About</a>
+    <button class="lang" id="langBtn" onclick="toggleLanguage()">हिंदी</button>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="planet-wrap">
+    <div class="orbit"></div>
+    <div class="orbit two"></div>
+    <div class="planet"></div>
+  </div>
+  <h1>ENTER THE AI UNIVERSE</h1>
+  <p id="heroText">Explore 50 powerful AI tools for writing, images, video, voice and productivity. Your creative universe starts here.</p>
+  <div class="search-box">
+    <input id="searchInput" type="search" placeholder="Search AI tools..." oninput="filterTools()">
+    <button onclick="filterTools()" id="searchBtn">SEARCH</button>
+  </div>
+  <div class="stats">
+    <div><strong>50+</strong><span data-en="AI Tools" data-hi="एआई टूल्स">AI Tools</span></div>
+    <div><strong>5</strong><span data-en="Categories" data-hi="कैटेगरी">Categories</span></div>
+    <div><strong>∞</strong><span data-en="Possibilities" data-hi="संभावनाएँ">Possibilities</span></div>
+  </div>
+</section>
+
+<section id="tools">
+  <h2 class="section-title" data-en="DISCOVER AI TOOLS" data-hi="एआई टूल्स खोजें">DISCOVER AI TOOLS</h2>
+  <p class="section-sub" id="sectionSub">Find the right tool for your next big idea.</p>
+  <div class="category-nav">
+    <button class="active" onclick="setCategory('all',this)" data-en="✨ All Tools" data-hi="✨ सभी टूल्स">✨ All Tools</button>
+    <button onclick="setCategory('writing',this)" data-en="✍️ Writing" data-hi="✍️ लेखन">✍️ Writing</button>
+    <button onclick="setCategory('images',this)" data-en="🎨 Images" data-hi="🎨 इमेज">🎨 Images</button>
+    <button onclick="setCategory('video',this)" data-en="🎬 Video" data-hi="🎬 वीडियो">🎬 Video</button>
+    <button onclick="setCategory('voice',this)" data-en="🎙️ Voice" data-hi="🎙️ आवाज़">🎙️ Voice</button>
+    <button onclick="setCategory('productivity',this)" data-en="⚡ Productivity" data-hi="⚡ प्रोडक्टिविटी">⚡ Productivity</button>
+  </div>
+
+  <div class="tools-grid" id="toolsGrid">
+
+    <a class="tool-card" data-category="writing" href="https://chatgpt.com/" target="_blank" rel="noopener"><span class="tool-icon">🤖</span><h3>ChatGPT</h3><p>AI assistant for ideas, writing, learning and more.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="writing" href="https://claude.ai/" target="_blank" rel="noopener"><span class="tool-icon">🧠</span><h3>Claude</h3><p>AI assistant for thoughtful writing and analysis.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="writing" href="https://gemini.google.com/" target="_blank" rel="noopener"><span class="tool-icon">✨</span><h3>Google Gemini</h3><p>Google AI assistant for creative and research tasks.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="writing" href="https://copilot.microsoft.com/" target="_blank" rel="noopener"><span class="tool-icon">💠</span><h3>Microsoft Copilot</h3><p>AI help for everyday questions and productivity.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="writing" href="https://www.perplexity.ai/" target="_blank" rel="noopener"><span class="tool-icon">🔎</span><h3>Perplexity</h3><p>AI-powered search and answer discovery.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="writing" href="https://www.jasper.ai/" target="_blank" rel="noopener"><span class="tool-icon">📝</span><h3>Jasper AI</h3><p>Marketing and brand content writing assistant.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="writing" href="https://www.grammarly.com/" target="_blank" rel="noopener"><span class="tool-icon">📖</span><h3>Grammarly</h3><p>Writing clarity, grammar and tone assistance.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="writing" href="https://quillbot.com/" target="_blank" rel="noopener"><span class="tool-icon">🖋️</span><h3>QuillBot</h3><p>Paraphrasing and writing improvement tools.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="writing" href="https://www.deepl.com/write" target="_blank" rel="noopener"><span class="tool-icon">🌍</span><h3>DeepL Write</h3><p>Improve sentences and writing style.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="writing" href="https://writesonic.com/" target="_blank" rel="noopener"><span class="tool-icon">🚀</span><h3>Writesonic</h3><p>AI content creation and marketing writing.</p><span class="open">EXPLORE ↗</span></a>
+
+    <a class="tool-card" data-category="images" href="https://firefly.adobe.com/" target="_blank" rel="noopener"><span class="tool-icon">🎨</span><h3>Adobe Firefly</h3><p>Generate and edit creative images with AI.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="images" href="https://www.canva.com/ai-image-generator/" target="_blank" rel="noopener"><span class="tool-icon">🪄</span><h3>Canva AI</h3><p>Design graphics and creative visual content.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="images" href="https://www.midjourney.com/" target="_blank" rel="noopener"><span class="tool-icon">🌌</span><h3>Midjourney</h3><p>Create artistic images from text prompts.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="images" href="https://leonardo.ai/" target="_blank" rel="noopener"><span class="tool-icon">🦁</span><h3>Leonardo AI</h3><p>AI image generation and creative assets.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="images" href="https://ideogram.ai/" target="_blank" rel="noopener"><span class="tool-icon">💡</span><h3>Ideogram</h3><p>Generate images with text and design elements.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="images" href="https://www.recraft.ai/" target="_blank" rel="noopener"><span class="tool-icon">🧩</span><h3>Recraft</h3><p>Create vector art, icons and illustrations.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="images" href="https://playground.com/" target="_blank" rel="noopener"><span class="tool-icon">🖼️</span><h3>Playground</h3><p>Explore AI-generated visual designs.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="images" href="https://www.remove.bg/" target="_blank" rel="noopener"><span class="tool-icon">✂️</span><h3>Remove.bg</h3><p>Remove backgrounds from photos quickly.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="images" href="https://clipdrop.co/" target="_blank" rel="noopener"><span class="tool-icon">📸</span><h3>Clipdrop</h3><p>AI image cleanup, editing and enhancement.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="images" href="https://www.photoroom.com/" target="_blank" rel="noopener"><span class="tool-icon">💎</span><h3>PhotoRoom</h3><p>Product photos and background editing.</p><span class="open">EXPLORE ↗</span></a>
+
+    <a class="tool-card" data-category="video" href="https://runwayml.com/" target="_blank" rel="noopener"><span class="tool-icon">🎬</span><h3>Runway</h3><p>AI video generation and creative editing.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="video" href="https://pika.art/" target="_blank" rel="noopener"><span class="tool-icon">⚡</span><h3>Pika</h3><p>Turn creative ideas into AI videos.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="video" href="https://lumalabs.ai/dream-machine" target="_blank" rel="noopener"><span class="tool-icon">🌠</span><h3>Luma Dream Machine</h3><p>Generate cinematic videos with AI.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="video" href="https://klingai.com/" target="_blank" rel="noopener"><span class="tool-icon">🎥</span><h3>Kling AI</h3><p>AI video creation from prompts and images.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="video" href="https://www.synthesia.io/" target="_blank" rel="noopener"><span class="tool-icon">🧑‍💻</span><h3>Synthesia</h3><p>Create videos with AI avatars and presenters.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="video" href="https://www.heygen.com/" target="_blank" rel="noopener"><span class="tool-icon">🗣️</span><h3>HeyGen</h3><p>AI avatars and talking video creation.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="video" href="https://invideo.io/" target="_blank" rel="noopener"><span class="tool-icon">📽️</span><h3>InVideo AI</h3><p>Make videos from text and ideas.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="video" href="https://www.veed.io/" target="_blank" rel="noopener"><span class="tool-icon">✂️</span><h3>VEED</h3><p>Online video editing and AI features.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="video" href="https://www.descript.com/" target="_blank" rel="noopener"><span class="tool-icon">🎞️</span><h3>Descript</h3><p>Edit video and audio using text-based tools.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="video" href="https://www.capcut.com/" target="_blank" rel="noopener"><span class="tool-icon">📱</span><h3>CapCut</h3><p>Video editing, effects and creative templates.</p><span class="open">EXPLORE ↗</span></a>
+
+    <a class="tool-card" data-category="voice" href="https://elevenlabs.io/" target="_blank" rel="noopener"><span class="tool-icon">🎙️</span><h3>ElevenLabs</h3><p>AI voice generation and text-to-speech.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="voice" href="https://murf.ai/" target="_blank" rel="noopener"><span class="tool-icon">🎧</span><h3>Murf AI</h3><p>Studio-quality AI voiceovers.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="voice" href="https://play.ht/" target="_blank" rel="noopener"><span class="tool-icon">🔊</span><h3>PlayHT</h3><p>AI text-to-speech and voice tools.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="voice" href="https://speechify.com/" target="_blank" rel="noopener"><span class="tool-icon">📢</span><h3>Speechify</h3><p>Listen to text with AI voices.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="voice" href="https://suno.com/" target="_blank" rel="noopener"><span class="tool-icon">🎵</span><h3>Suno</h3><p>Create original music with AI.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="voice" href="https://www.udio.com/" target="_blank" rel="noopener"><span class="tool-icon">🎼</span><h3>Udio</h3><p>Explore AI music creation.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="voice" href="https://podcast.adobe.com/" target="_blank" rel="noopener"><span class="tool-icon">🎚️</span><h3>Adobe Podcast</h3><p>Enhance speech and podcast audio.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="voice" href="https://krisp.ai/" target="_blank" rel="noopener"><span class="tool-icon">🔇</span><h3>Krisp</h3><p>Reduce background noise in calls.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="voice" href="https://otter.ai/" target="_blank" rel="noopener"><span class="tool-icon">🦦</span><h3>Otter AI</h3><p>Meeting transcription and notes.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="voice" href="https://cleanvoice.ai/" target="_blank" rel="noopener"><span class="tool-icon">🎛️</span><h3>Cleanvoice</h3><p>Clean audio and remove unwanted sounds.</p><span class="open">EXPLORE ↗</span></a>
+
+    <a class="tool-card" data-category="productivity" href="https://www.notion.so/product/ai" target="_blank" rel="noopener"><span class="tool-icon">📚</span><h3>Notion AI</h3><p>Organize notes, projects and knowledge.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="productivity" href="https://gamma.app/" target="_blank" rel="noopener"><span class="tool-icon">📊</span><h3>Gamma</h3><p>Create presentations and visual documents.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="productivity" href="https://zapier.com/" target="_blank" rel="noopener"><span class="tool-icon">🔗</span><h3>Zapier</h3><p>Automate tasks across connected apps.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="productivity" href="https://www.make.com/" target="_blank" rel="noopener"><span class="tool-icon">⚙️</span><h3>Make</h3><p>Build visual workflows and automations.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="productivity" href="https://n8n.io/" target="_blank" rel="noopener"><span class="tool-icon">🧰</span><h3>n8n</h3><p>Workflow automation and integrations.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="productivity" href="https://cursor.com/" target="_blank" rel="noopener"><span class="tool-icon">💻</span><h3>Cursor</h3><p>AI-powered coding editor.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="productivity" href="https://replit.com/" target="_blank" rel="noopener"><span class="tool-icon">👨‍💻</span><h3>Replit</h3><p>Build and run apps in your browser.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="productivity" href="https://lovable.dev/" target="_blank" rel="noopener"><span class="tool-icon">💜</span><h3>Lovable</h3><p>Build web apps with AI assistance.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="productivity" href="https://clickup.com/ai" target="_blank" rel="noopener"><span class="tool-icon">✅</span><h3>ClickUp AI</h3><p>Manage tasks and team productivity.</p><span class="open">EXPLORE ↗</span></a>
+    <a class="tool-card" data-category="productivity" href="https://notebooklm.google.com/" target="_blank" rel="noopener"><span class="tool-icon">📓</span><h3>NotebookLM</h3><p>Research and summarize your own sources.</p><span class="open">EXPLORE ↗</span></a>
+
+  </div>
+  <div class="no-results" id="noResults">No tools found. Try another search.</div>
+</section>
+
+<section id="about">
+  <h2 class="section-title" data-en="ABOUT SMART AI TOOLS" data-hi="SMART AI TOOLS के बारे में">ABOUT SMART AI TOOLS</h2>
+  <div class="about">
+    <p id="aboutText">Welcome to SmartAITools — your gateway to the world of artificial intelligence. Discover useful tools for writing, image creation, video editing, voice generation and productivity, all in one place.</p>
+    <p style="margin-top:12px">🚀 <strong style="color:#00eaff">Explore • Create • Innovate</strong></p>
+    <p style="font-size:12px;margin-top:12px">Some services may require an account or paid subscription. Availability and pricing are controlled by each provider.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <strong>✦ SMART AI TOOLS — NEBULA X</strong><br>
+  Explore the Universe of Artificial Intelligence<br>
+  <span>Made with creativity and ❤️</span>
+</footer>
+
 <script>
-let currentFilter='all',hindi=false;function setFilter(f,el){currentFilter=f;document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));el.classList.add('active');filterTools()}
-function filterTools(){let q=document.getElementById('search').value.toLowerCase();document.querySelectorAll('.tool').forEach(c=>{let group=c.closest('[data-grid]').dataset.grid;let ok=(currentFilter==='all'||group===currentFilter)&&c.innerText.toLowerCase().includes(q);c.classList.toggle('hide',!ok)});document.querySelectorAll('[data-cat-title]').forEach(t=>{let grid=t.nextElementSibling;let visible=[...grid.querySelectorAll('.tool')].some(c=>!c.classList.contains('hide'));t.style.display=visible?'flex':'none';grid.style.display=visible?'grid':'none'})}
-function toggleLang(){hindi=!hindi;document.documentElement.lang=hindi?'hi':'en';document.querySelectorAll('[data-en]').forEach(e=>e.textContent=hindi?e.dataset.hi:e.dataset.en);document.getElementById('langBtn').textContent=hindi?'English':'हिंदी';document.getElementById('search').placeholder=hindi?'⌕  AI टूल खोजें...':'⌕  Search your AI tool...'}
-// Interactive starfield
-const canvas=document.getElementById('stars'),ctx=canvas.getContext('2d');let stars=[];function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);stars=Array.from({length:Math.min(150,Math.floor(innerWidth/7))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.7+.3,s:Math.random()*.45+.08,p:Math.random()*6.28}))}function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);stars.forEach(a=>{a.y-=a.s;if(a.y<0){a.y=innerHeight;a.x=Math.random()*innerWidth}a.p+=.025;ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,Math.PI*2);ctx.fillStyle=`rgba(120,225,255,${.25+Math.abs(Math.sin(a.p))*.65})`;ctx.shadowBlur=8;ctx.shadowColor='#42f5ff';ctx.fill()});requestAnimationFrame(draw)}addEventListener('resize',resize);resize();draw();
-// Gentle pointer tilt on larger screens
-if(matchMedia('(pointer:fine)').matches){document.querySelectorAll('.tool').forEach(c=>{c.addEventListener('mousemove',e=>{let r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`translateY(-7px) rotateX(${-y*9}deg) rotateY(${x*9}deg)`});c.addEventListener('mouseleave',()=>c.style.transform='')})}
-</script></body></html>
+let currentCategory="all";
+let hindi=false;
+
+function setCategory(category,button){
+  currentCategory=category;
+  document.querySelectorAll(".category-nav button").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+  filterTools();
+}
+
+function filterTools(){
+  const query=document.getElementById("searchInput").value.toLowerCase().trim();
+  let visible=0;
+  document.querySelectorAll(".tool-card").forEach(card=>{
+    const category=card.dataset.category;
+    const text=card.innerText.toLowerCase();
+    const matchesCategory=currentCategory==="all"||category===currentCategory;
+    const matchesSearch=text.includes(query);
+    const show=matchesCategory&&matchesSearch;
+    card.style.display=show?"block":"none";
+    if(show)visible++;
+  });
+  document.getElementById("noResults").style.display=visible?"none":"block";
+}
+
+function toggleLanguage(){
+  hindi=!hindi;
+  document.documentElement.lang=hindi?"hi":"en";
+  document.getElementById("langBtn").textContent=hindi?"English":"हिंदी";
+  document.querySelectorAll("[data-en]").forEach(el=>{
+    el.textContent=hindi?el.dataset.hi:el.dataset.en;
+  });
+  document.getElementById("heroText").textContent=hindi
+    ?"लेखन, इमेज, वीडियो, आवाज़ और काम के लिए 50 शानदार AI टूल्स खोजें। आपकी रचनात्मक दुनिया यहीं से शुरू होती है।"
+    :"Explore 50 powerful AI tools for writing, images, video, voice and productivity. Your creative universe starts here.";
+  document.getElementById("sectionSub").textContent=hindi
+    ?"अपने अगले शानदार आइडिया के लिए सही टूल खोजें।"
+    :"Find the right tool for your next big idea.";
+  document.getElementById("aboutText").textContent=hindi
+    ?"SmartAITools में आपका स्वागत है — आर्टिफिशियल इंटेलिजेंस की दुनिया का आपका प्रवेश द्वार। लेखन, इमेज, वीडियो, आवाज़ और प्रोडक्टिविटी के उपयोगी टूल्स एक ही जगह खोजें।"
+    :"Welcome to SmartAITools — your gateway to the world of artificial intelligence. Discover useful tools for writing, image creation, video editing, voice generation and productivity, all in one place.";
+  document.getElementById("searchInput").placeholder=hindi?"AI टूल खोजें...":"Search AI tools...";
+  document.getElementById("searchBtn").textContent=hindi?"खोजें":"SEARCH";
+}
+
+// Animated star field
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+let stars=[];
+let width,height;
+
+function resizeCanvas(){
+  width=canvas.width=window.innerWidth;
+  height=canvas.height=window.innerHeight;
+  stars=Array.from({length:Math.min(180,Math.floor(width/5))},()=>({
+    x:Math.random()*width,
+    y:Math.random()*height,
+    r:Math.random()*1.5+.2,
+    speed:Math.random()*.35+.08,
+    alpha:Math.random()*.7+.2
+  }));
+}
+function drawStars(){
+  ctx.clearRect(0,0,width,height);
+  stars.forEach(s=>{
+    s.y+=s.speed;
+    if(s.y>height){s.y=0;s.x=Math.random()*width}
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle="rgba(190,225,255,"+s.alpha+")";
+    ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+window.addEventListener("resize",resizeCanvas);
+resizeCanvas();
+drawStars();
+</script>
+</body>
+</html>
