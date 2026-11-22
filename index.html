@@ -1,1 +1,67 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SmartAITools - Global AI Tools</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:white;font-family:Arial,sans-serif}
+header{padding:22px;background:#151e35;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:25px;font-weight:bold;color:#43e5cf}
+select,input,button{padding:12px;border-radius:9px;border:0}
+.hero{text-align:center;padding:65px 20px}
+h1{font-size:42px}
+.hero p{color:#bbc6dd}
+.search{max-width:550px;margin:25px auto;display:flex;gap:8px}
+.search input{flex:1;min-width:0}
+button{background:#7164ed;color:white;font-weight:bold;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;padding:25px}
+.card{background:#172440;padding:25px;border-radius:15px;border:1px solid #34415f}
+.card h2{color:#43e5cf}
+.card p{color:#c4cce0}
+footer{text-align:center;padding:30px;color:#bbc6dd}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">SmartAITools 🌍</div>
+<select id="language" onchange="changeLanguage()">
+<option value="en">English</option>
+<option value="hi">हिंदी</option>
+</select>
+</header>
+<section class="hero">
+<h1 id="heading">Discover the Best AI Tools</h1>
+<p id="subtitle">Explore AI tools for your everyday work.</p>
+<div class="search">
+<input id="search" placeholder="Search AI tools...">
+<button onclick="filterTools()">Search</button>
+</div>
+</section>
+<section class="grid" id="tools">
+<div class="card"><h2>✍️ AI Writing</h2><p>Writing, research and content tools.</p></div>
+<div class="card"><h2>🎨 AI Images</h2><p>Create amazing AI images and logos.</p></div>
+<div class="card"><h2>🎬 AI Video</h2><p>Discover AI video creation tools.</p></div>
+<div class="card"><h2>🎙️ AI Voice</h2><p>Voice generation and audio tools.</p></div>
+<div class="card"><h2>🌐 AI Websites</h2><p>Build websites with AI.</p></div>
+<div class="card"><h2>⚡ AI Productivity</h2><p>Make everyday work faster.</p></div>
+</section>
+<footer>© 2026 SmartAITools | Global AI Discovery</footer>
+<script>
+function changeLanguage(){
+let hi=document.getElementById('language').value==='hi';
+document.getElementById('heading').innerText=hi?'बेहतरीन AI टूल्स खोजें':'Discover the Best AI Tools';
+document.getElementById('subtitle').innerText=hi?'अपने रोज़मर्रा के काम के लिए AI टूल्स खोजें':'Explore AI tools for your everyday work.';
+}
+function filterTools(){
+let q=document.getElementById('search').value.toLowerCase();
+document.querySelectorAll('.card').forEach(c=>{
+c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none';
+});
+}
+</script>
+</body>
+</html>
+
